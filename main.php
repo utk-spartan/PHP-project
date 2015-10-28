@@ -9,7 +9,7 @@ if(isset($_POST['sub'])){
 	if(!empty($uname) && !empty($pass)){
 		$q=$con->query("select id from employee where username='$uname' and password='$pass';");
 		if($q){
-			if($q->num_rows>1){
+			if($q->num_rows>0){
 				$row=$q->fetch_assoc();
 				$_SESSION['id']=$row['id'];
 				header("Location: 1.php");
