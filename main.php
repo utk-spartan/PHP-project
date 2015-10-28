@@ -12,7 +12,8 @@ if(isset($_POST['sub'])){
 			if($q->num_rows>1){
 				$row=$q->fetch_assoc();
 				$_SESSION['id']=$row['id'];
-				//redirect('header.php');
+				header("Location: 1.php");
+				die();
 			}
 			else $flag=2;
 		}
