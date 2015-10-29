@@ -1,19 +1,34 @@
-<center>
 <?php 
 	include 'header.php';
+	if ( $_POST['value'] == "")
+    {
+    $selected = "";
+    }
+    else
+    {
+    $selected = "selected";
+    }
 ?>
+<body>
+<script>
+	function setdrop(val) {
+		document.getElementById(val).selected = "selected";
+		document.getElementById(hidden).selected = "notselected";
+	}
+</script>
+<center>
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
 	<select name="value">
-		<option selected disabled class="hideoption">Select a table</option>
-		<option value="doctor">Doctors</option>
-		<option value="nurse">Nurses</option>
-		<option value="receptionist">Receptionists</option>
-		<option value="equipments">Equipment</option>
-		<option value="medicine">Medicine</option>
-		<option value="patient">Patients</option>
-		<option value="room">Rooms</option>
+		<option disabled id="hidden" class="hideoption">Select a table</option>
+		<option value="doctor" id="doctor" <?php $selected ?> >Doctors</option>
+		<option value="nurse" id="nurse" <?php $selected ?> >Nurses</option>
+		<option value="receptionist" id="receptionist"<?php $selected ?> >Receptionists</option>
+		<option value="equipments" id="equipments" <?php $selected ?> >Equipment</option>
+		<option value="medicine" id="medicine" <?php $selected ?> >Medicine</option>
+		<option value="patient" id="patient" <?php $selected ?> >Patients</option>
+		<option value="room" id="room" <?php $selected ?> >Rooms</option>
 	</select>
-	<input type="submit" name="view" value="View">
+	<input type="submit" name="view" value="View" >
 	<input type="submit" name="insert" value="Insert">
 	<input type="submit" name="update" value="Update">
 	<br>
@@ -29,7 +44,7 @@
 			$row=$q->num_rows;
 			$col=$q->field_count;
 
-			echo "<br><table>";
+			echo "<br>Please insert varchar field input in quotes<br><table>";
 			for($j=0;$j<$col;$j++){
 					$c=$q->fetch_field();
 					echo "<th>",$c->name,"</th>";
@@ -60,7 +75,7 @@
 					if($i!=$row-1)$q=$q.",";
 				}
 			$q="insert into $val values($q);";
-			echo $q;
+			echo $val," Table updated<br>",$q;
 			//$con->query($q);
 		}
 		else if(isset($_POST['update'])){
@@ -92,3 +107,4 @@
 	
 </form>
 </center>
+</body>

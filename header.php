@@ -1,6 +1,6 @@
 <?php 
-	echo "<h1><center><br>HOSPITAL</h1>";
-	echo "<head><link rel=stylesheet type=text/css href=style.css></head>";
+	echo "<head><center><h1><br>HOSPITAL</h1>
+		<link rel=stylesheet type=text/css href=style.css></center></head>";
 	session_start();
 	
 	$con = new mysqli("localhost","root","","hospital");
