@@ -1,6 +1,6 @@
 <?php 
-	echo "<h1><center><br>G0PaL Asspatal</h1>";
-	
+	echo "<h1><center><br>HOSPITAL</h1>";
+	echo "<head><link rel=stylesheet type=text/css href=style.css></head>";
 	session_start();
 	
 	$con = new mysqli("localhost","root","","hospital");
@@ -14,12 +14,11 @@
 		$row=$q->num_rows;
 		$col=$q->field_count;
 
-		echo "<table>";
+		echo "<br><table>";
 		for($j=0;$j<$col;$j++){
 				$c=$q->fetch_field();
 				echo "<th>",$c->name,"</th>";
 			}
-		echo "<br>";
 		for($i=0;$i<$row;$i++){
 			$r=$q->fetch_row();
 			echo "<tr>";

@@ -4,6 +4,7 @@
 ?>
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
 	<select name="value">
+		<option selected disabled class="hideoption">Select a table</option>
 		<option value="doctor">Doctors</option>
 		<option value="nurse">Nurses</option>
 		<option value="receptionist">Receptionists</option>
@@ -15,7 +16,7 @@
 	<input type="submit" name="view" value="View">
 	<input type="submit" name="insert" value="Insert">
 	<input type="submit" name="update" value="Update">
-	
+	<br>
 	<?php
 		if(isset($_POST['view'])){
 			$val=$_POST['value'];
@@ -28,13 +29,12 @@
 			$row=$q->num_rows;
 			$col=$q->field_count;
 
-			echo "<table>";
+			echo "<br><table>";
 			for($j=0;$j<$col;$j++){
 					$c=$q->fetch_field();
 					echo "<th>",$c->name,"</th>";
 				}
 			echo "<th>Insert</th>";
-			echo "<br>";
 			for($i=0;$i<$row;$i++){
 				$r=$q->fetch_row();
 				echo "<tr>";
@@ -49,9 +49,7 @@
 			$_SESSION['ins_in']=$val;
 			
 		}
-		else if(isset($_POST['update'])){
-			//select("select id from employee;",$con);
-		}
+		
 		else if(isset($_POST['conf_ins'])){
 				//$con->query("insert into $val values();");
 			$row=$_SESSION['row'];
@@ -64,6 +62,31 @@
 			$q="insert into $val values($q);";
 			echo $q;
 			//$con->query($q);
+		}
+		else if(isset($_POST['update'])){
+			$val=$_POST['value'];
+			$q=$con->query("select * from $val;");
+			$row=$q->num_rows;
+			$col=$q->field_count;
+			
+			echo "<br><table>";
+			for($j=0;$j<$col;$j++){
+					$c=$q->fetch_field();
+					echo "<th>",$c->name,"</th>";
+			}
+			for($i=0;$i<$row;$i++){
+				$r=$q->fetch_row();
+				echo "<tr>";
+				for($j=0;$j<$col;$j++){
+					echo "<td>",$r[$j],"</td>";
+				}
+				echo "<td class=rbut><input type=radio name=up[]></td></tr>";
+			}
+			echo "</table><br>";
+			echo "<br><input type=submit name=conf_up value=UPDATE>";
+		}
+		else if(isset($_POST['conf_up'])){
+			
 		}
 	?>
 	

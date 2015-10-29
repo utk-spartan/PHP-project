@@ -1,0 +1,27 @@
+td{
+	outline-style: solid;
+	outline-width: 1px;
+	text-align: center;
+	height: 30px;
+	}
+.rbut{
+	outline-style: none;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+th{
+	outline-style: solid;
+	outline-color: blue;
+	outline-width: 2px;
+	height: 35px;
+	background-color: #6666FF;
+	
+}
+
+th,td{
+	width: 100px;
+	padding-right: 10px;
+	padding-left: 10px;
+
+}
+.hideoption { display:none; visibility:hidden; height:0; font-size:0; }
