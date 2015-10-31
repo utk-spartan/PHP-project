@@ -1,32 +1,23 @@
 <?php 
 	include 'header.php';
-	if ( $_POST['value'] == "")
-    {
-    $selected = "";
-    }
-    else
-    {
-    $selected = "selected";
-    }
+	function mkdef($opt){
+		if(isset($_POST['value'])){
+			if($_POST['value']==$opt)echo "selected";
+		}
+	}
 ?>
 <body>
-<script>
-	function setdrop(val) {
-		document.getElementById(val).selected = "selected";
-		document.getElementById(hidden).selected = "notselected";
-	}
-</script>
 <center>
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
 	<select name="value">
-		<option disabled id="hidden" class="hideoption">Select a table</option>
-		<option value="doctor" id="doctor" <?php $selected ?> >Doctors</option>
-		<option value="nurse" id="nurse" <?php $selected ?> >Nurses</option>
-		<option value="receptionist" id="receptionist"<?php $selected ?> >Receptionists</option>
-		<option value="equipments" id="equipments" <?php $selected ?> >Equipment</option>
-		<option value="medicine" id="medicine" <?php $selected ?> >Medicine</option>
-		<option value="patient" id="patient" <?php $selected ?> >Patients</option>
-		<option value="room" id="room" <?php $selected ?> >Rooms</option>
+		<option disabled selected id="hidden" class="hideoption">Select a table</option>
+		<option value="doctor" id="doctor" <?php mkdef(doctor);?> >Doctors</option>
+		<option value="nurse" id="nurse" <?php mkdef(nurse);?> >Nurses</option>
+		<option value="receptionist" id="receptionist" <?php mkdef(receptionist);?> >Receptionists</option>
+		<option value="equipments" id="equipments" <?php mkdef(equipments);?> >Equipment</option>
+		<option value="medicine" id="medicine" <?php mkdef(medicine);?> >Medicine</option>
+		<option value="patient" id="patient" <?php mkdef(patient);?> >Patients</option>
+		<option value="room" id="room" <?php mkdef(room); ?> >Rooms</option>
 	</select>
 	<input type="submit" name="view" value="View" >
 	<input type="submit" name="insert" value="Insert">
@@ -44,7 +35,7 @@
 			$row=$q->num_rows;
 			$col=$q->field_count;
 
-			echo "<br>Please insert varchar field input in quotes<br><table>";
+			echo "<br><table>";
 			for($j=0;$j<$col;$j++){
 					$c=$q->fetch_field();
 					echo "<th>",$c->name,"</th>";
@@ -66,12 +57,11 @@
 		}
 		
 		else if(isset($_POST['conf_ins'])){
-				//$con->query("insert into $val values();");
 			$row=$_SESSION['row'];
 			$val=$_SESSION['ins_in'];
 			$q="";
 			for($i=0;$i<$row;$i++){
-					$q=$q.$_POST['new'][$i];
+					$q=$q."'".$_POST['new'][$i]."' ";
 					if($i!=$row-1)$q=$q.",";
 				}
 			$q="insert into $val values($q);";
@@ -116,7 +106,7 @@
 			$row=$q->num_rows;
 			$col=$q->field_count;
 			
-			echo "<br>Please insert varchar field input in quotes<br><table>";
+			echo "<br><table>";
 			for($j=0;$j<$col;$j++){
 					$c=$q->fetch_field();
 					echo "<th>",$c->name,"</th>";
@@ -158,11 +148,11 @@
 			$s2="";
 			$j=0;
 			for(;$j+1<$q->field_count;$j++){
-					$s=$s.$fname[$j]."=".$r[$j].", ";
-					$s2=$s2.$fname[$j]."=".$_POST['new_up'][$j]." AND ";
+					$s=$s.$fname[$j]."='".$r[$j]."' AND ";
+					if(!empty($_POST['new_up'][$j]))$s2=$s2.$fname[$j]."='".$_POST['new_up'][$j]."' , ";
 				}
-			$s=$s.$fname[$j]."=".$r[$j];
-			$s2=$s2.$fname[$j]."=".$_POST['new_up'][$j];
+			$s=$s.$fname[$j]."='".$r[$j]."'";
+			if(!empty($_POST['new_up'][$j]))$s2=$s2.$fname[$j]."='".$_POST['new_up'][$j]."'";
 			$s="UPDATE ".$val." SET ".$s2." WHERE ".$s." ;";
 			
 			echo "<br>",$s;
