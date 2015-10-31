@@ -82,6 +82,7 @@
 			$val=$_POST['value'];
 			$q=$con->query("select * from $val;");
 			$row=$q->num_rows;
+			
 			$col=$q->field_count;
 			
 			echo "<br><table>";
@@ -95,12 +96,76 @@
 				for($j=0;$j<$col;$j++){
 					echo "<td>",$r[$j],"</td>";
 				}
-				echo "<td class=rbut><input type=radio name=up[]></td></tr>";
+				echo "<td class=rbut><input type=radio name=up value=",$i,"></td></tr>";
 			}
 			echo "</table><br>";
 			echo "<br><input type=submit name=conf_up value=UPDATE>";
+			$_SESSION['up_in']=$val;
 		}
 		else if(isset($_POST['conf_up'])){
+			$val=$_SESSION['up_in'];
+			$q1=$con->query("select * from $val;");
+			$current=$q1->fetch_row();
+			for($i=0;$i<$q1->num_rows;$i++){
+				if($i==$_POST['up'][0])break;
+				$current=$q1->fetch_row();
+				
+			}
+			$_SESSION['row']=$i;
+			$q=$con->query("desc $val;");
+			$row=$q->num_rows;
+			$col=$q->field_count;
+			
+			echo "<br>Please insert varchar field input in quotes<br><table>";
+			for($j=0;$j<$col;$j++){
+					$c=$q->fetch_field();
+					echo "<th>",$c->name,"</th>";
+				}
+			echo "<th>Current</th><th>New</th>";
+			for($i=0;$i<$row;$i++){
+				$r=$q->fetch_row();
+				echo "<tr>";
+				for($j=0;$j<$col;$j++){
+					echo "<td>",$r[$j],"</td>";
+				}
+				echo "<td>$current[$i]</td>";
+				echo "<td><input type=text name=new_up[]></td></tr>";
+			}
+			echo "</table>";
+			echo "<br><input type=submit name=up_val value=Update>";
+			$_SESSION['up_in']=$val;
+			
+			
+		}
+		else if(isset($_POST['up_val'])){
+			$val=$_SESSION['up_in'];
+			$row=$_SESSION['row'];
+			$q=$con->query("select * from $val;");
+			
+			$fname=array();
+			for($j=0;$j<$q->field_count;$j++){
+					$ccc=$q->fetch_field();
+					$fname[]=$ccc->name;
+				}
+			$r=$q->fetch_row();
+			for($i=0;$i<$q->num_rows;$i++){
+				
+				if($row==$i)break;
+				$r=$q->fetch_row();
+			}
+			
+			$s="";
+			$s2="";
+			$j=0;
+			for(;$j+1<$q->field_count;$j++){
+					$s=$s.$fname[$j]."=".$r[$j].", ";
+					$s2=$s2.$fname[$j]."=".$_POST['new_up'][$j]." AND ";
+				}
+			$s=$s.$fname[$j]."=".$r[$j];
+			$s2=$s2.$fname[$j]."=".$_POST['new_up'][$j];
+			$s="UPDATE ".$val." SET ".$s2." WHERE ".$s." ;";
+			
+			echo "<br>",$s;
 			
 		}
 	?>
