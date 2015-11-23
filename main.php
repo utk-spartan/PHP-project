@@ -7,13 +7,13 @@ if(isset($_POST['sub'])){
 	$uname=$_POST['uname'];
 	$pass=$_POST['pwd'];
 	if(!empty($uname) && !empty($pass)){
-		$q=$con->query("select id from employee where username='$uname' and password='$pass';");
+		$q=$con->query("select id from checkemployee where userid='$uname' and password='$pass';");
 		if($q){
 			if($q->num_rows>0){
 				$row=$q->fetch_assoc();
 				$_SESSION['id']=$row['id'];
+				echo $_SESSION['id'];
 				header("Location: 1.php");
-				die();
 			}
 			else $flag=2;
 		}
@@ -37,7 +37,7 @@ if(isset($_POST['sub'])){
 	<td><input type="password" name=pwd></td>
 </tr>	
 </table>
-<input type="submit" name=sub>
+<input type="submit" name=sub value="Login">
 </form>
 <?php if($flag==1)echo "<font color=\"red\">*Please enter username and password</font>";
 else if($flag==2)echo "<font color=\"red\">*Please enter a valid username and password</font>";?>

@@ -1,22 +1,125 @@
-td{
-	outline-style: solid;
-	outline-width: 1px;
-	text-align: center;
-	height: 30px;
-	}
+body{
+	font-family:helvetica;
+	background:#d9d9d9;
+	
+}
+
+
+ul{
+	background:#1a1a1a;
+	border-radius:3px;
+	
+}	
+li{
+	display:inline;
+	list-style-type:none;
+}
+li input{
+	font-size:30px;
+	width:25%;
+	color:#e5ffee;
+	background:inherit;
+	border-style:none;
+	padding:10px;
+}
+li input:hover{
+	background:#000;
+	color:#ffffff;
+}
+
+div.navbar{
+	background:#1a1a1a;
+	position:absolute;
+	left:0px;
+	top:0px;
+	float:left;
+	height:100%;
+	width:15%;
+	cursor:default;
+	
+}
+
+div.navbar:hover{
+	
+}
+
+p.a{
+	font-size:30px;
+	color:#ffffff;
+}
+
+p.b{
+	cursor:pointer;
+	border-bottom-style:solid;
+	border-bottom-color:#333333;
+	border-bottom-width:1px;
+	padding:15px;
+	display:block;
+	margin:0px;
+	font-size:16px;
+	color:#bfbfbf;
+}
+p.b:hover{
+	background:#000000;
+	color:#ffffff;
+}
+
+p.b:active{
+	background:#60af00;
+}
+
+p.c{
+	position:absolute;
+	bottom:0px;
+	width:100%;
+}
+
 .rbut{
 	outline-style: none;
 	padding-right: 0px;
 	padding-left: 0px;
 }
+
+.sub_but{
+	background: #8090AB;
+	color: #000;
+	padding: 5px 5px 5px 5px;
+ 	border : 0px;
+	border-radius:7px;
+}
+
+.sub_but:hover , .sub_but:focus{
+	background: #6F7D94;
+	color: #FFF;
+	
+	border : 0px;
+	border-radius:7px;
+
+}
+
+tr{
+	
+		background:#ffffff;	
+}
+
 th{
-	outline-style: solid;
-	outline-color: blue;
-	outline-width: 2px;
 	height: 35px;
-	background-color: #6666FF;
+	background: #cc0000;
+	outline-width: 1px;
+	outline-style:solid;
+	outline-color:#a00000;
+	text-shadow: 0px 0px 3px #000;
+	color:#fff;
 	
 }
+
+td{
+	outline-style: solid;
+	outline-width: 1px;
+	text-align: center;
+	height: 30px;
+
+	}
 
 th,td{
 	width: 100px;
@@ -24,4 +127,14 @@ th,td{
 	padding-left: 10px;
 
 }
-.hideoption { display:none; visibility:hidden; height:0; font-size:0; }
+td.rbut{
+	background:#d9d9d9;
+}
+
+input:focus, input:active{
+	box-shadow: 0 0 5px #99ccff;
+}
+input{
+	text-align:center;
+}
+
